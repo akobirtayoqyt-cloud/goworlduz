@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Koreyada O‘qish — Premium 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --bg: #0b1120;
+      --card: rgba(255,255,255,0.04);
+      --glass: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.1);
+      --accent: #60a5fa;
+      --accent2: #3b82f6;
+      --text: #e2e8f0;
+      --text2: #94a3b8;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header {
+      padding: 24px 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(12px);
+      background: rgba(11,17,32,0.7);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 1.6rem;
+      font-weight: 800;
+    }
+    .logo span {
+      background: linear-gradient(90deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      ;
+      -webkit-text-fill-color: transparent;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+    .nav-links a {
+      color: var(--text2);
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+    .cta-btn {
+      background: linear-gradient(90deg, #60a5fa, #3b82f6);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 8px 25px rgba(59,130,246,0.4);
+      transition: 0.3s;
+    }
+    .cta-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px rgba(59,130,246,0.5);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 140px 0 100px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 3.8rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #fff, #93c5fd, #60a5fa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+      animation: fadeInUp 1s ease;
+    }
+    .hero p {
+      font-size: 1.4rem;
+      color: var(--text2);
+      max-width: 700px;
+      margin: 0 auto 40px;
+      animation: fadeInUp 1.2s ease;
+    }
+
+    /* Cards Grid */
+    .section-title {
+      text-align: center;
+      font-size: 2.6rem;
+      margin: 80px 0 50px;
+      font-weight: 700;
+      background: linear-gradient(90deg, #60a5fa, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 28px;
+      margin-bottom: 80px;
+    }
+
+    .card {
+      background: var(--card);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 4px;
+      background: linear-gradient(90deg, #60a5fa, #3b82f6);
+      transform: scaleX(0);
+      transition: 0.4s;
+    }
+    .card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 20px 40px rgba(96,165,250,0.25);
+    }
+    .card:hover::before {
+      transform: scaleX(1);
+    }
+    .badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: linear-gradient(135deg, #f472b6, #ec4899);
+      color: white;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .price {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 16px 0;
+    }
+
+    /* Stats */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+      gap: 30px;
+      padding: 60px 0;
+      text-align: center;
+    }
+    .stat-num {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    /* FAQ Accordion */
+    .faq-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .faq-question {
+      padding: 24px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    .faq-question:hover {
+      background: rgba(96,165,250,0.1);
+    }
+    .faq-answer {
+      padding: 0 24px 24px;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      color: var(--text2);
+    }
+    .faq-item.active .faq-answer {
+      max-height: 300px;
+      padding-top: 10px;
+    }
+    .faq-item.active .faq-question i {
+      transform: rotate(180deg);
+    }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+      gap: 40px;
+      align-items: start;
+    }
+    .contact-card {
+      background: var(--card);
+      padding: 32px;
+      border-radius: 20px;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+    .contact-card i {
+      font-size: 3rem;
+      background: linear-gradient(90deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 60px 0 30px;
+      color: var(--text2);
+      border-top: 1px solid var(--border);
+      margin-top: 100px;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero h1 { font-size: 2.8rem; }
+      .section-title { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav">
+      <div class="logo">
+        <div style="width:50px;height:50px;background:linear-gradient(135deg,#60a5fa,#3b82f6);border-radius:14px;display:flex;align-items:center;justify-content:center;color:white;font-size:1.8rem;font-weight:bold;">K</div>
+        <div>
+          <div style="font-weight:800;font-size:1.5rem"><span>Koreyada</span> O‘qish</div>
+          <div style="font-size:0.9rem;opacity:0.8;">Premium dastur • 2025</div>
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="#programs">Dasturlar</a>
+        <a href="#advantages">Afzalliklar</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Aloqa</a>
+      </div>
+      <a href="https://t.me/mirolim_absalomov" class="cta-btn">Hoziroq ariza berish</a>
+    </div>
+  </header>
+
+  <section class="hero container">
+    <h1>Koreyada 100% Kafolatli Magistratura</h1>
+    <p>TOPIK va IELTSsiz, bank hisobisiz, daromadsiz — 2025 yil bahorgi qabul ochildi!</p>
+    <a href="index1.html" class="cta-btn" style="font-size:1.3rem;padding:18px 40px;display:inline-block;margin-top:20px;">Bepul maslahat olish</a>
+  </section>
+
+  <div class="container">
+    <h2 class="section-title" id="programs">Mavjud Universitetlar</h2>
+    <div class="grid">
+      <!-- <div class="card" onclick="location.href='royxar.html'">
+        <div class="badge">YANGI</div>
+        <h3>한성대학교 — Hansung University</h3>
+        <p>Seul shahri • TOPIK: ❌ • IELTS: ❌</p>
+        <div class="price">Narx kelishiladi</div>
+        <p>Firma to'lovi alohida</p>
+      </div>
+
+      
+
+      <div class="card" onclick="location.href='royxar.html'">
+        <div class="badge">E-VISA</div>
+        <h3>우석대학교 — Woosuk University</h3>
+        <p>Jeonbuk • Haftada 1 kun dars</p>
+        <div class="price">$2,200</div>
+        <p>Bank hisobi • Daromad • Til sertifikatisiz</p>
+      </div>
+
+      <div class="card" onclick="location.href='royxar.html'">
+        <h3>백석대학교 — Baekseok University</h3>
+        <p>Cheonan • TOPIK 2 yoki IELTS 5.5</p>
+        <div class="price">$2,300</div>
+      </div>
+
+      <div class="card" onclick="location.href='royxar.html'">
+        <div class="badge">YOTOQXONA BILAN</div>
+        <h3>신경주대학교 — SinGyeongju University</h3>
+        <p>Gyeongju • 6 oy yotoqxona bepul</p>
+        <div class="price">$2,770</div>
+      </div>
+
+      <div class="card" onclick="location.href='royxar.html'">
+        <div class="badge">E-VISA</div>
+        <h3>대신대학교 — Daeshin University</h3>
+        <p>Gyeongsan • Til talabi yo‘q</p>
+        <div class="price">Kelishiladi</div>
+      </div>
+
+      <div class="card" onclick="location.href='royxar.html'">
+        <h3>성결대학교 — Sungkyul University</h3>
+        <p>Anyang • Haftada 1 kun</p>
+        <div class="price">$2,650</div>
+      </div> -->
+      <div class="grid">
+
+  <!-- 1. Baekseok University -->
+  <div class="card" onclick="location.href='index1.html'">
+    <h3>백석대학교 — Baekseok University</h3>
+    <p>Chonan shahri</p>
+    <div class="price">$2,300</div>
+    <p>Talab: TOPIK 2</p>
+    <p>Dars: Haftada 4 kun</p>
+    <p>Firma to‘lovi: $2000</p>
+  </div>
+
+  <!-- 2. Sungkyul University -->
+  <div class="card" onclick="location.href='index1.html'">
+    <h3>성결대학교 — Sungkyul University</h3>
+    <p>Anyang shahri</p>
+    <div class="price">$2,650</div>
+    <p>Talab: Sertifikatsiz</p>
+    <p>Dars: Haftada 1 kun</p>
+    <p>Firma to‘lovi: $2000</p>
+  </div>
+
+  <!-- 3. Woosuk University -->
+  <div class="card" onclick="location.href='index1.html'">
+    <div class="badge">E-VISA</div>
+    <h3>우석대학교 — Woosuk University</h3>
+    <p>Jonbuk, Iksan shahri</p>
+    <div class="price">$2,200</div>
+    <p>Talab: Sertifikatsiz</p>
+    <p>Dars: Haftada 1 kun</p>
+    <p>Firma to‘lovi: $2000</p>
+  </div>
+
+  <!-- 4. Daeshin University -->
+  <div class="card" onclick="location.href='index1.html'">
+    <div class="badge">E-VISA</div>
+    <h3>대신대학교 — Daeshin University</h3>
+    <p>Gyongsan shahri</p>
+    <div class="price">Kutilmoqda</div>
+    <p>Talab: Sertifikatsiz</p>
+    <p>Dars: Koʼrsatilmagan</p>
+    <p>Firma to‘lovi: $2000</p>
+  </div>
+
+  <!-- 5. Daejin University -->
+  <div class="card" onclick="location.href='index1.html'">
+    <h3>대진대학교 — Daejin University</h3>
+    <p>Pochon shahri</p>
+    <div class="price">Kutilmoqda</div>
+    <p>Talab: Sertifikatsiz</p>
+    <p>Dars: Koʼrsatilmagan</p>
+    <p>Firma to‘lovi: $2000</p>
+  </div>
+
+  <!-- 6. SinGyeongju University -->
+  <div class="card" onclick="location.href='index1.html'">
+    <div class="badge">YOTOQXONA BILAN</div>
+    <h3>신경주대학교 — SinGyeongju University</h3>
+    <p>Gyongju shahri</p>
+    <div class="price">$2,770</div>
+    <p>6 oylik yotoqxona ichida</p>
+    <p>Talab: Sertifikatsiz</p>
+    <p>Dars: Haftada 2 kun</p>
+    <p>Firma to‘lovi: $2000</p>
+  </div>
+
+  <!-- 7. Yemyung Graduate University -->
+  <div class="card" onclick="location.href='index1.html'">
+    <h3>예명대학원대학교 — Yemyung Graduate University</h3>
+    <p>Seul shahri</p>
+    <div class="price">Kutilmoqda</div>
+    <p>Talab: Sertifikatsiz</p>
+    <p>Dars: Koʼrsatilmagan</p>
+    <p>Firma to‘lovi: $2000</p>
+  </div>
+
+  <!-- 8. Mokwon University -->
+  <div class="card" onclick="location.href='index1.html'">
+    <h3>목원대학교 — Mokwon University</h3>
+    <p>Dejon shahri</p>
+    <div class="price">Kutilmoqda</div>
+    <p>Talab: Sertifikatsiz</p>
+    <p>Dars: Koʼrsatilmagan</p>
+    <p>Firma to‘lovi: $2000</p>
+  </div>
+
+  <!-- 9. Hansung University -->
+  <div class="card" onclick="location.href='index1.html'">
+    <div class="badge">YANGI</div>
+    <h3>한성대학교 — Hansung University</h3>
+    <p>Seul shahri</p>
+    <div class="price">$2,500</div>
+    <p>Talab: Sertifikatsiz</p>
+    <p>Dars: Haftada 4 kun</p>
+    <p>Firma to‘lovi: $2000</p>
+  </div>
+
+</div>
+
+    </div>
+
+    <h2 class="section-title" id="advantages">Nima uchun bizni tanlaysiz?</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>100% Viza kafolati</h3>
+        <p>Agar viza chiqmasa — pulingizni 100% qaytaramiz</p>
+      </div>
+      <div class="card">
+        <h3>Tajribali jamoa</h3>
+        <p>7+ yillik tajriba, 1500+ talaba Koreyada</p>
+      </div>
+      <div class="card">
+        <h3>Tez ariza topshirish</h3>
+        <p>3 kun ichida hujjatlaringiz tayyor</p>
+      </div>
+      <div class="card">
+        <h3>24/7 qo‘llab-quvvatlash</h3>
+        <p>Koreyaga yetib borguncha yordam beramiz</p>
+      </div>
+    </div>
+
+    <h2 class="section-title">Statistika</h2>
+    <div class="stats">
+      <div>
+        <div class="stat-num">220+</div>
+        <p>Talabalar Koreyada</p>
+      </div>
+      <div>
+        <div class="stat-num">79.6%</div>
+        <p>Viza olish foizi</p>
+      </div>
+      <div>
+        <div class="stat-num">27 ta</div>
+        <p>Universitet bilan hamkorlik</p>
+      </div>
+      <div>
+        <div class="stat-num">5 yil</div>
+        <p>Tajriba</p>
+      </div>
+    </div>
+
+    <h2 class="section-title" id="faq">Tez-tez so‘raladigan savollar</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-question">
+          TOPIK yoki IELTS kerakmi?
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Yo‘q! Faqat Baekseok universiteti uchun kerak bo‘lishi mumkin. Qolgan barcha universitetlarda til talabi yo‘q.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          Bank hisobi va daromad talab qilinadimi?
+          <i class="fas fa-chevron-down">
+          
+          </i>
+        </div>
+        <div class="faq-answer">
+          E-VISA dasturidagi universitetlarda (Woosuk, Daeshin, Daejin va boshqalar) — mutlaqo talab qilinmaydi!
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          Qancha vaqtda viza chiqadi?
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          O‘rtacha 3–6 hafta. Tezlashtirilgan rejimda 2 haftada ham chiqarib berganmiz.
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title" id="contact">Biz bilan bog‘lanish</h2>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <i class="fab fa-telegram">
+          
+        </i>
+        <h3>Telegram</h3>
+        <p>@mirolim_absalomov<br>@lprofnt</p>
+        <a href="https://t.me/mirolim_absalomov" class="cta-btn" style="margin-top:20px;display:inline-block;padding:12px 30px;font-size:1rem;">Yozish</a>
+      </div>
+      <div class="contact-card">
+        <i class="fas fa-phone-alt"></i>
+        <h3>Telefon</h3>
+        <p>+998 87 076 9699</p>
+        <p>Har kuni 09:00 – 22:00</p>
+      </div>
+      <div class="contact-card">
+        <i class="fas fa-map-marker-alt"></i>
+        <h3>Ofis</h3>
+        <p>Toshkent shahri<br>Chilonzor tumani</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>© <span id="year"></span> Koreyada O‘qish — Premium. Barcha huquqlar himoyalangan.</p>
+      <p style="margin-top:12px;font-size:0.9rem;opacity:0.7;">Made with passion for Uzbek students in Korea</p>
+    </div>
+  </footer>
+
+  <script>
+    // Yilni avto yangilash
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // FAQ akkordeon
+    document.querySelectorAll('.faq-question').forEach(item => {
+      item.addEventListener('click', () => {
+        const parent = item.parentElement;
+        parent.classList.toggle('active');
+      });
+    });
+
+    // Statistikani animatsiya bilan ko‘rsatish (ixtiyoriy)
+    const stats = document.querySelectorAll('.stat-num');
+    const animateValue = (obj, start, end, duration) => {
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        obj.innerHTML = Math.floor(progress * (end - start) + start) + (obj.innerHTML.includes('%') ? '%' : '+');
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
+    };
+      
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateValue(entry.target, 0, parseInt(entry.target.innerHTML), 2000);
+          observer.unobserve(entry.target);
+        }
+      });
+    });
+
+    stats.forEach(stat => {
+      observer.observe(stat);
+    });
+  </script>
+</body>
+</html>

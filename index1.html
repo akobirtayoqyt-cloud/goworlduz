@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ro‘yxatdan o‘tish — Telegramga yuborish</title>
+
+  <style>
+    *{box-sizing:border-box;font-family:"Poppins",sans-serif}
+    :root{
+      --bg1:#1d2536; --bg2:#000000; --accent:#1904ff;
+      --card:rgba(32, 32, 32, 0.179);
+      --success:#473232; --error:#ef4444;
+    }
+    body{
+      margin:0; height:100vh; display:flex; align-items:center; justify-content:center;
+      background:linear-gradient(135deg,var(--bg1),var(--bg2)); color:#e6eef8; padding:20px;
+    }
+    .card{
+      width:100%; max-width:520px; border-radius:14px; padding:22px;
+      background:var(--card); backdrop-filter:blur(6px);
+      box-shadow:0 10px 30px rgba(0,0,0,0.5);
+    }
+    h1{text-align:center;color:var(--accent);margin:0 0 14px;font-size:22px}
+    label{display:block;margin-top:14px;font-size:13px;color:#cfe9ff}
+    input,select,textarea{
+      width:100%; padding:11px 12px; margin-top:6px; border-radius:10px; border:0;
+      background:rgba(255,255,255,0.07); color:#fff; font-size:14px;
+    }
+    textarea{resize:vertical;min-height:90px;}
+    select option{background:#1e293b;color:#fff}
+    .row{display:flex;gap:12px}
+    .half{flex:1}
+    .btn{
+      width:100%; padding:14px; margin-top:18px; border-radius:10px;
+      border:0; background:var(--accent); color:#062234; font-weight:600;
+      cursor:pointer; transition:0.12s;
+    }
+    .btn:active{transform:scale(.98)}
+    .status{margin-top:12px;padding:10px;border-radius:10px;font-weight:600;text-align:center}
+    .success{background:#22c55e22;color:#22c55e}
+    .error{background:#ef444422;color:#ef4444}
+  </style>
+</head>
+
+<body>
+
+<form id="registerForm" class="card">
+  <h1>Ro‘yxatdan o‘tish</h1>
+
+  <label>To‘liq ism</label>
+  <input id="fullname" type="text" placeholder="Ismingizni kiriting">
+
+  <label>Telefon raqam</label>
+  <input id="phone" type="text" placeholder="+998 ...">
+
+  <label>Yoshingiz</label>
+  <input id="age" type="number" min="1" max="100" placeholder="Masalan: 18">
+
+  <label>Qaysi universitet?</label>
+  <select id="univer">
+    <option value="">Tanlang</option>
+    <option>Hansung University</option>
+    <option>Sungkyul University</option>
+    <option>Baekseok University</option>
+    <option>Woosuk University</option>
+    <option>Daeshin University</option>
+    <option>Daejin University</option>
+    <option>SinGyeongju University</option>
+    <option>Yemyung Graduate University</option>
+  </select>
+
+  <div class="row">
+    <div class="half">
+      <label>TOPIK</label>
+      <select id="topik">
+        <option value="">Tanlang</option>
+        <option>Yo‘q</option>
+        <option>TOPIK 1</option>
+        <option>TOPIK 2</option>
+        <option>TOPIK 3</option>
+        <option>TOPIK 4</option>
+        <option>TOPIK 5</option>
+        <option>TOPIK 6</option>
+      </select>
+    </div>
+
+    <div class="half">
+      <label>IELTS</label>
+      <select id="ielts">
+        <option value="">Tanlang</option>
+        <option>Yo‘q</option>
+        <option>5.0</option>
+        <option>5.5</option>
+        <option>6.0</option>
+        <option>6.5</option>
+        <option>7.0</option>
+        <option>7.5</option>
+        <option>8.0</option>
+         <option>8.5</option>
+        <option>9.0</option>
+      </select>
+    </div>
+  </div>
+
+  <label>O‘zingiz haqingizda</label>
+  <textarea id="about" placeholder="Qisqacha yozing..."></textarea>
+
+  <button type="submit" class="btn" id="submitBtn">Yuborish</button>
+
+  <div id="statusMessage"></div>
+</form>
+
+<script>
+const TOKEN = "8383043588:AAGqK_OJ_cYTKOK428ZeDLA7_tOBya9qM_8";
+const CHAT_ID = "7693784050";
+
+function safe(t){return t.replaceAll("<","&lt;").replaceAll(">","&gt;")}
+
+const form = document.getElementById("registerForm");
+const msgBox = document.getElementById("statusMessage");
+const btn = document.getElementById("submitBtn");
+
+form.addEventListener("submit", async e=>{
+  e.preventDefault();
+  msgBox.textContent = "";
+
+  let name = fullname.value.trim();
+  let phone = document.getElementById("phone").value.trim();
+  let age = document.getElementById("age").value.trim();
+  let univer = document.getElementById("univer").value.trim();
+  let topik = document.getElementById("topik").value.trim();
+  let ielts = document.getElementById("ielts").value.trim();
+  let about = document.getElementById("about").value.trim();
+
+  if(!name) return showError("Iltimos ismingizni kiriting.");
+  if(!phone) return showError("Telefon raqamni kiriting.");
+  if(!age) return showError("Yoshingizni kiriting.");
+  if(!univer) return showError("Universitetni tanlang.");
+  if(!topik) return showError("TOPIK darajasini tanlang.");
+  if(!ielts) return showError("IELTS ballini tanlang.");
+
+  btn.disabled = true;
+  btn.textContent = "Yuborilmoqda...";
+
+  let message = `
+<b>📥 Yangi ariza</b>
+
+<b>👤 Ism:</b> ${safe(name)}
+<b>📞 Telefon:</b> ${safe(phone)}
+<b>🎂 Yosh:</b> ${safe(age)}
+<b>🏫 Universitet:</b> ${safe(univer)}
+<b>🇰🇷 TOPIK:</b> ${safe(topik)}
+<b>🇬🇧 IELTS:</b> ${safe(ielts)}
+
+<b>💬 Izoh:</b> ${safe(about || "—")}
+  `.trim();
+
+  try {
+    let res = await fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({chat_id:CHAT_ID, text:message, parse_mode:"HTML"})
+    });
+
+    if(res.ok){
+      showSuccess("✔ Ariza muvaffaqiyatli yuborildi! \n      Tez orada siz bilan bog‘lanamiz.");
+      form.reset();
+    }else showError("Telegram xatosi!");
+  }
+  catch(err){ showError("Internet xatosi: " + err.message) }
+  finally{
+    btn.disabled = false;
+    btn.textContent = "Yuborish";
+  }
+});
+
+function showError(t){
+  msgBox.className="status error";
+  msgBox.textContent=t;
+}
+function showSuccess(t){
+  msgBox.className="status success";
+  msgBox.textContent=t;
+}
+</script>
+
+</body>
+</html>
+  
